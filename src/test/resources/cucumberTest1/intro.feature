@@ -1,7 +1,8 @@
-Feature: Intro to the cucumber
-  Description goes here
+Feature: QA Store My Account login
+  Verify that user is able to log in to My Account
 
-  Scenario: Introduction to the cucumber automation
-    Given I have some preconditions
-    When I do an action
-    Then I expect a result to happen
+  Scenario: Log in using valid credentials
+    Given User has navigated to <url>
+    When User enters <username> and <password>
+    And User clicks login button
+    Then My Account page is displayed
