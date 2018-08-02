@@ -19,7 +19,7 @@ public class Test_Steps {
     @Before
     public void beforeScenario() throws Exception{
         System.out.println("This will run before the Scenario");
-        System.setProperty("webdriver.chrome.driver","J:\\repository\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", Test_Steps.class.getResource("/chromedriver/chromedriver.exe").getFile());
         driver = new ChromeDriver();
     }
 
