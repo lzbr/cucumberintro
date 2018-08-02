@@ -26,7 +26,7 @@ public class Test_Steps {
     @After
     public void afterScenario() throws Exception{
         System.out.println("This will run after the Scenario");
-        driver.close();
+        driver.quit();
     }
 
     @Given("User has navigated to (.*) with message (.*)$")
