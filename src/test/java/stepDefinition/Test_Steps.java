@@ -8,46 +8,51 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Test_Steps {
     private static WebDriver driver;
 
     @Before
-    public void beforeScenario(){
+    public void beforeScenario() throws Exception{
         System.out.println("This will run before the Scenario");
         System.setProperty("webdriver.chrome.driver","J:\\repository\\chromedriver.exe");
         driver = new ChromeDriver();
     }
 
     @After
-    public void afterScenario(){
+    public void afterScenario() throws Exception{
         System.out.println("This will run after the Scenario");
         driver.close();
     }
 
-    @Given("User has navigated to <url>")
-    public void user_has_navigated_to_url() {
-        driver.get("http://store.demoqa.com/products-page/your-account/");
+    @Given("User has navigated to (.*) with message (.*)$")
+    public void user_has_navigated_to_url(String url, String loginMessage) throws Exception{
+        driver.get(url);
         String bodyText = driver.findElement(By.className("myaccount")).getText();
-        Assert.assertTrue("page contains login notice", bodyText.contains("You must be logged in to use this page. Please use the form below to login to your account."));
+        Assert.assertTrue("Page contains login notice", bodyText.contains(loginMessage));
     }
 
-    @When("User enters <username> and <password>")
-    public void user_enters_username_and_password() {
-        driver.findElement(By.id("log")).sendKeys("cuctest");
-        driver.findElement(By.id("pwd")).sendKeys("Test123");
+    @When("User enters (.*) and (.*)$")
+    public void user_enters_username_and_password(String username, String password) throws Exception{
+        driver.findElement(By.id("log")).sendKeys(username);
+        driver.findElement(By.id("pwd")).sendKeys(password);
 
     }
 
     @When("User clicks login button")
-    public void user_clicks_login_button() throws InterruptedException {
-        driver.findElement(By.id("login")).click();
-        Thread.sleep(4000);
+    public void user_clicks_login_button() throws Exception {
+        WebElement login = driver.findElement(By.id("login"));
+        WebDriverWait wait = new WebDriverWait(driver, 15);
+        login.click();
+        wait.until(ExpectedConditions.stalenessOf(login));
     }
 
     @Then("My Account page is displayed")
-    public void my_Account_page_is_displayed() {
+    public void my_Account_page_is_displayed() throws Exception{
         String accountDetails = driver.findElement(By.className("user-profile-links")).getText();
         Assert.assertTrue("Page contains account details", !accountDetails.isEmpty());
     }
