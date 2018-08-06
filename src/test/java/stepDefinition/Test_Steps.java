@@ -18,14 +18,14 @@ public class Test_Steps {
 
     @Before
     public void beforeScenario() throws Exception{
-        System.out.println("This will run before the Scenario");
+        System.out.println("This is the before Scenario initialization");
         System.setProperty("webdriver.chrome.driver", Test_Steps.class.getResource("/chromedriver/chromedriver.exe").getFile());
         driver = new ChromeDriver();
     }
 
     @After
     public void afterScenario() throws Exception{
-        System.out.println("This will run after the Scenario");
+        System.out.println("This is the after Scenario cleanup");
         driver.quit();
     }
 
