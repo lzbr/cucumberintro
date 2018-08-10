@@ -58,4 +58,21 @@ public class Test_Steps {
     }
 
 
+    @Given("User has navigated to (.*) with page title (.*)")
+    public void user_has_navigated_to_homepage(String url, String homeTitle) {
+        driver.get(url);
+        Assert.assertEquals(driver.getTitle(), homeTitle);
+    }
+
+    @When("User selects (.*) from header menu")
+    public void user_selects_menu_item_from_header_menu(String menuItemId) {
+        driver.findElement(By.id(menuItemId)).click();
+    }
+
+    @Then("Apropriate page with correct (.*) is loaded")
+    public void apropriate_page_with_correct_page_title_is_loaded(String pageTitle) {
+        Assert.assertEquals(driver.getTitle(), pageTitle);
+    }
+
+
 }
