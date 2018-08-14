@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -59,18 +60,20 @@ public class Test_Steps {
 
 
     @Given("User has navigated to (.*) with page title (.*)")
-    public void user_has_navigated_to_homepage(String url, String homeTitle) {
+    public void user_has_navigated_to_homepage(String url, String homeTitle) throws Exception {
         driver.get(url);
         Assert.assertEquals(driver.getTitle(), homeTitle);
     }
 
-    @When("User selects (.*) from header menu")
-    public void user_selects_menu_item_from_header_menu(String menuItemId) {
+    @When("User selects (.*) from header menu (.*)")
+    public void user_selects_menu_item_from_header_menu(String menuItemId, String menuCategory) throws Exception {
+        Actions action = new Actions(driver);
+        action.moveToElement(driver.findElement(By.xpath(menuCategory))).perform();
         driver.findElement(By.id(menuItemId)).click();
     }
 
     @Then("Apropriate page with correct (.*) is loaded")
-    public void apropriate_page_with_correct_page_title_is_loaded(String pageTitle) {
+    public void apropriate_page_with_correct_page_title_is_loaded(String pageTitle) throws Exception {
         Assert.assertEquals(driver.getTitle(), pageTitle);
     }
 

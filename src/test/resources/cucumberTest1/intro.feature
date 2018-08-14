@@ -15,9 +15,9 @@ Feature: QA Store demo website
 
   Scenario Outline:  Page title check - check, that selected page has appropriate page title
     Given User has navigated to <homepage> with page title <title>
-    When User selects <entry> from header menu
+    When User selects <entry> from header menu <menuCategoryXPath>
     Then Apropriate page with correct <pagetitle> is loaded
 
     Examples:
-    | homepage | title | entry | pagetitle |
-    | http://store.demoqa.com/ | ONLINE STORE \| Toolsqa Dummy Test site | menu-item-34 | Accessories \| ONLINE STORE |
+    | homepage | title | entry | menuCategoryXPath | pagetitle |
+    | http://store.demoqa.com/ | ONLINE STORE \| Toolsqa Dummy Test site | menu-item-34 | //nav[@id='main-nav']//a[contains(text(),'Product Category')]/.. | Accessories \| ONLINE STORE |
